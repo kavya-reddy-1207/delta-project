@@ -26,7 +26,7 @@ router
 
     //new route
     router.get("/new", isLoggedIn,(listingController.renderNewForm) );
-
+  
 
     router
     .route("/:id")

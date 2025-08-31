@@ -24,7 +24,8 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 
-const dbUrl = process.env.ATLASDB_URL;
+// const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = "mongodb+srv://delta-sudent:T3gX7H2S6QHesQfz@cluster0.gm7jdyi.mongodb.net/wanderlust";
 
 main()
 .then(()=>{
@@ -58,9 +59,14 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error" ,() => {
- console.log("ERROR in MONGO SESSION STORE", err)
+// store.on("error" ,() => {
+//  console.log("ERROR in MONGO SESSION STORE", err)
+// });
+
+store.on("error", (err) => {
+ console.log("ERROR in MONGO SESSION STORE", err);
 });
+
 
 const sessionOption = {
     store,
@@ -119,6 +125,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("listings/error",{ message });
     // res.status(statusCode).send(message); 
 });
+
 
 
 app.listen(port, ()=>{

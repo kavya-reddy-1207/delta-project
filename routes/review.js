@@ -7,7 +7,7 @@ const Listing = require("../models/listing.js");
 const {validateReview, isLoggedIn, isReviewAuthor} = require("../middleware.js");
 
 
-   const reviewController = require("../controllers/reviews.js");
+const reviewController = require("../controllers/reviews.js");
 
 //post route for reviews route
 router.post("/", 
