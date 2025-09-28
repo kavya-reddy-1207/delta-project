@@ -1,4 +1,4 @@
-<% layout('layouts/boilerplate') %>
+<!-- <% layout('layouts/boilerplate') %>
  <style>
   #filters{
     display: flex;
@@ -19,30 +19,6 @@
     font-size: 0.8rem;
   }
  
-  /* .tax-toggle{
-    margin-left: 2rem;
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    gap:12px;
-    border: 2px solid black;
-    padding: 6px 12px;
-    border-radius: 8px;
-  }
-  .tax-toggle .form-check-input{
-    width:40px;
-    height:20px;
-    cursor: pointer;
-    background-color: #ccc;
-    border-radius: 30px;
-    transition: background-color 0.3s;
-  }
-
-  .tax-toggle .form-check-input:checked {
-    background-color: #2196F3;
-    border-color:#2196F3 ;
-  } */
-
 
   .tax-toggle{
     height: 40px;
@@ -156,4 +132,180 @@
     </script>
 
 
-    
+     -->
+
+
+          <% layout('layouts/boilerplate') %>
+
+<style>
+  /* Filters */
+
+#filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter{
+    text-align: center;
+    margin-right: 2rem;
+    margin-top:2rem;
+    opacity: 0.7;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+  }
+
+  /* GST toggle */
+  .tax-toggle {
+    height: 40px;
+    width: 190px;
+    border: 1px solid rgba(0, 0, 0, 0.52);
+    text-align: center;
+    border-radius: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tax-toggle:hover{
+    background-color: purple;
+    color:#fff;
+  }
+
+  .form-check-input {
+    cursor: pointer;
+  }
+
+  /* Listings Cards */
+  .listing-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.33);
+    opacity: 1;
+  }
+
+  .listing-card img {
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  .listing-card .card-body {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .listing-card .card-text b {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .listing-card .card-text i.tax-info {
+    font-style: normal;
+    color: #555;
+    font-size: 0.8rem;
+  }
+
+  /* Wishlist button */
+  .wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255,255,255,0.9);
+    padding: 6px;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  .wishlist-btn i {
+    color: #000;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .wishlist-btn:hover i {
+    color: #ff385c;
+  }
+</style>
+
+<!-- Filters Section -->
+<div id="filters">
+  <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+  <div class="filter"><i class="fa-solid fa-bed"></i><p>Room</p></div>
+  <div class="filter"><i class="fa-solid fa-mountain-city"></i><p>Iconic Cities</p></div>
+  <div class="filter"><i class="fa-solid fa-mountain"></i><p>Mountains</p></div>
+  <div class="filter"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></div>
+  <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Amazing Pools</p></div>
+  <div class="filter"><i class="fa-solid fa-campground"></i><p>Camping</p></div>
+  <div class="filter"><i class="fa-solid fa-cow"></i><p>Farms</p></div>
+  <div class="filter"><i class="fa-solid fa-snowflake"></i><p>Arctic</p></div>
+  <div class="filter"><i class="fa-solid fa-igloo"></i><p>Domes</p></div>
+  <div class="filter"><i class="fa-solid fa-sailboat"></i><p>Boats</p></div>
+
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">&nbsp;Enable GST&nbsp;&nbsp;</label>
+    </div>
+  </div>
+</div>
+
+<!-- Listings Section -->
+<div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4 mt-3">
+  <% for(let listing of allListings) { %>
+    <div class="col">
+      <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none">
+        <div class="card listing-card">
+          <img src="<%= listing.image.url %>" alt="Listing Image" style="height: 20rem;">
+          <div class="wishlist-btn">
+            <i class="fa-regular fa-heart"></i>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <b><%= listing.title %></b>
+              &#8377; <%= (typeof listing.price === 'number' ? listing.price.toLocaleString("en-IN") : listing.price) %> /night
+              <i class="tax-info">&nbsp;&nbsp;+18% GST</i>
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  // GST toggle
+  let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", ()=>{
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(let info of taxInfo){
+      info.style.display = (info.style.display !== "inline") ? "inline" : "none";
+    }
+  });
+
+  // Wishlist toggle
+  const wishlistButtons = document.querySelectorAll('.wishlist-btn i');
+  wishlistButtons.forEach(icon => {
+    icon.addEventListener('click', (e) => {
+      e.preventDefault(); // prevent link navigation
+      icon.classList.toggle('fa-regular');
+      icon.classList.toggle('fa-solid');
+      icon.style.color = icon.classList.contains('fa-solid') ? '#ff385c' : '#000';
+    });
+  });
+</script>

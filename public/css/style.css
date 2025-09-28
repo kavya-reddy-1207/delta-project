@@ -50,7 +50,8 @@ body {
     background-color: #ebebeb;
     display: flex;
     flex-wrap: wrap;
-    align-items: space-evenly;
+    /* align-items: space-evenly; */
+     align-items: center; /* corrected */
     justify-content: center;  
 } 
 .main-content {
@@ -98,6 +99,7 @@ body {
 .edit-btn{
     background-color:#fe424d !important;
     border: none !important;
+     margin-bottom: 3rem; /* small spacing only */
 }
 
 /* show.ejs page */
